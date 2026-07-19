@@ -2,11 +2,11 @@ import requests
 import json
 import time
 
-TEAM_ID = "ruby-satranc"
+# Üye verilerinin tam olarak çekilebilmesi için kesinleşen members API uç noktası
+MEMBERS_URL = "https://lichess.org/api/team/ruby-satranc/members"
 
 def get_team_members():
-    url = f"https://lichess.org/api/team/{TEAM_ID}/users"
-    response = requests.get(url)
+    response = requests.get(MEMBERS_URL)
     if response.status_code == 200:
         lines = response.text.strip().split('\n')
         members = []
@@ -22,7 +22,7 @@ def get_team_members():
 def get_h2h_matches(usernames):
     h2h_data = {}
     for username in usernames:
-        time.sleep(1.5)
+        time.sleep(1.5) # API koruması için 1.5 saniye mola
         url = f"https://lichess.org/api/games/user/{username}?max=80&perfType=blitz"
         headers = {"Accept": "application/x-ndjson"}
         try:
@@ -65,6 +65,7 @@ def get_h2h_matches(usernames):
                     continue
         except:
             continue
+            
     final_h2h = []
     for key, data in h2h_data.items():
         data["total"] = max(1, round(data["total"] / 2))
@@ -77,6 +78,7 @@ def get_h2h_matches(usernames):
 def main():
     members = get_team_members()
     if not members:
+        print("Üye listesi boş döndü.")
         return
     blitz_list = []
     games_list = []
@@ -89,9 +91,11 @@ def main():
         blitz_list.append({"username": username, "rating": blitz_rating})
         total_games = m.get('count', {}).get('all', 0)
         games_list.append({"username": username, "games": total_games})
+        
     blitz_list.sort(key=lambda x: x['rating'], reverse=True)
     games_list.sort(key=lambda x: x['games'], reverse=True)
     h2h_list = get_h2h_matches(usernames)
+    
     output_data = {"blitz": blitz_list, "games": games_list, "h2h": h2h_list}
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=4)
