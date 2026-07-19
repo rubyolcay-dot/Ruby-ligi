@@ -17,10 +17,6 @@
         .username { flex: 1; font-weight: bold; color: #ffffff; }
         .score-box { text-align: right; }
         .score { font-size: 16px; font-weight: bold; color: #ffffff; }
-        .change { font-size: 12px; font-weight: bold; margin-left: 5px; }
-        .green { color: #629924; }
-        .red { color: #c33; }
-        .gray { color: #666; }
     </style>
 </head>
 <body>
@@ -44,23 +40,23 @@
 
         async function init() {
             try {
-                const res = await fetch('data.json');
+                // Tarayıcı önbellek (cache) sorununu önlemek için timestamp ekledik
+                const res = await fetch('data.json?t=' + new Date().getTime());
                 const data = await res.json();
                 
                 let blitzHtml = '';
                 data.blitz.forEach((u, i) => {
-                    let change = u.change > 0 ? `<span class="change green">(+${u.change})</span>` : (u.change < 0 ? `<span class="change red">(${u.change})</span>` : '<span class="change gray">(0)</span>');
-                    blitzHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.name}</div><div class="score-box"><span class="score">${u.rating}</span>${change}</div></div>`;
+                    blitzHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.rating}</span></div></div>`;
                 });
                 document.getElementById('blitz-list').innerHTML = blitzHtml;
 
                 let gamesHtml = '';
                 data.games.forEach((u, i) => {
-                    gamesHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.name}</div><div class="score-box"><span class="score">${u.count} Maç</span></div></div>`;
+                    gamesHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.games} Maç</span></div></div>`;
                 });
                 document.getElementById('games-list').innerHTML = gamesHtml;
             } catch(e) {
-                document.getElementById('blitz-list').innerHTML = "Veriler yükleniyor, lütfen bekleyin...";
+                document.getElementById('blitz-list').innerHTML = "Veriler yüklenirken bir hata oluştu...";
             }
         }
         init();
