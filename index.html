@@ -5,61 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ruby Satranç Ligi</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #161512; color: #bababa; margin: 0; padding: 15px; }
-        h2 { text-align: center; color: #ffffff; }
-        .tabs { display: flex; background-color: #262421; border-radius: 8px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; background: none; border: none; color: #bababa; padding: 15px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .tab-btn.active { background-color: #363431; color: #ffffff; border-bottom: 3px solid #629924; }
-        .tab-content { display: none; background-color: #262421; padding: 15px; border-radius: 8px; }
+        :root {
+            --bg-main: #161512;
+            --bg-card: #262421;
+            --bg-hover: #363431;
+            --text-main: #bababa;
+            --text-white: #ffffff;
+            --accent: #629924;
+            --gold: #d4a017;
+            --silver: #b4b4b4;
+            --bronze: #ad8a56;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 600px; position: relative; }
+        
+        /* Üst Bar ve Müzik Kontrolü */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 15px; }
+        h2 { margin: 0; color: var(--text-white); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .music-btn { background: var(--bg-card); border: 1px solid #444; color: var(--text-white); padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+        .music-btn:hover { background: var(--bg-hover); }
+
+        .subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 25px; width: 100%; }
+        
+        /* Podyum Tasarımı */
+        .podium { display: flex; justify-content: center; align-items: flex-end; margin-bottom: 30px; gap: 10px; padding: 10px; background: rgba(38, 36, 33, 0.4); border-radius: 12px; }
+        .podium-card { background-color: var(--bg-card); border-radius: 8px; padding: 15px 10px; text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
+        .podium-card.first { order: 2; height: 110px; border-top: 4px solid var(--gold); }
+        .podium-card.second { order: 1; height: 90px; border-top: 4px solid var(--silver); }
+        .podium-card.third { order: 3; height: 80px; border-top: 4px solid var(--bronze); }
+        .podium-crown { font-size: 20px; margin-bottom: 5px; }
+        .podium-name { font-weight: bold; color: var(--text-white); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+        .podium-score { font-size: 13px; font-weight: bold; color: var(--accent); margin-top: 5px; }
+
+        /* Sekmeler */
+        .tabs { display: flex; background-color: var(--bg-card); border-radius: 8px; margin-bottom: 15px; padding: 4px; gap: 2px; }
+        .tab-btn { flex: 1; background: none; border: none; color: var(--text-main); padding: 12px 6px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+        .tab-btn.active { background-color: var(--bg-hover); color: var(--text-white); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        
+        .tab-content { display: none; background-color: var(--bg-card); padding: 10px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .tab-content.active { display: block; }
-        .player-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #363431; }
-        .rank { width: 35px; font-weight: bold; color: #d4a017; }
-        .username { flex: 1; font-weight: bold; color: #ffffff; }
+        
+        /* Liste Satırları */
+        .player-row, .vs-row { display: flex; align-items: center; padding: 14px 15px; border-bottom: 1px solid #32302c; border-radius: 6px; transition: background 0.1s; }
+        .player-row:hover, .vs-row:hover { background-color: var(--bg-hover); }
+        .player-row:last-child, .vs-row:last-child { border-bottom: none; }
+        
+        .rank { width: 35px; font-weight: bold; font-size: 15px; }
+        .rank.r1 { color: var(--gold); }
+        .rank.r2 { color: var(--silver); }
+        .rank.r3 { color: var(--bronze); }
+        .username { flex: 1; font-weight: 600; color: var(--text-white); }
+        
+        /* İkili Rekabet */
+        .vs-players { flex: 1; display: flex; flex-direction: column; }
+        .vs-names { color: var(--text-white); font-weight: bold; font-size: 14px; }
+        .vs-stats { font-size: 12px; color: #888; margin-top: 3px; }
         .score-box { text-align: right; }
-        .score { font-size: 16px; font-weight: bold; color: #ffffff; }
+        .score { font-size: 15px; font-weight: bold; color: var(--accent); }
+
+        /* Gizli YouTube Oynatıcı */
+        #yt-player { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
-    <h2>♟️ Ruby Satranç Ligi</h2>
-    <div class="tabs">
-        <button id="btn-blitz" class="tab-btn active" onclick="switchTab('blitz')">⚡ Blitz Puanı</button>
-        <button id="btn-games" class="tab-btn" onclick="switchTab('games')">🔥 En Çok Maç</button>
+
+<!-- YouTube API ve Gizli Iframe alanı -->
+<div id="yt-player"></div>
+
+<div class="container">
+    <div class="top-bar">
+        <h2>♟️ Ruby League</h2>
+        <button id="music-toggle" class="music-btn" onclick="toggleMusic()">🎵 Müziği Aç</button>
     </div>
+    <div class="subtitle" id="update-time">Yükleniyor...</div>
+    
+    <div class="podium" id="top-podium"></div>
+
+    <div class="tabs">
+        <button id="btn-blitz" class="tab-btn active" onclick="switchTab('blitz')">⚡ Blitz</button>
+        <button id="btn-games" class="tab-btn" onclick="switchTab('games')">🔥 Toplam Maç</button>
+        <button id="btn-h2h" class="tab-btn" onclick="switchTab('h2h')">⚔️ Ezeli Rekabetler</button>
+    </div>
+    
     <div id="blitz" class="tab-content active"><div id="blitz-list"></div></div>
     <div id="games" class="tab-content"><div id="games-list"></div></div>
+    <div id="h2h" class="tab-content"><div id="h2h-list"></div></div>
+</div>
 
-    <script>
-        function switchTab(tabId) {
-            document.getElementById('blitz').classList.remove('active');
-            document.getElementById('games').classList.remove('active');
-            document.getElementById('btn-blitz').classList.remove('active');
-            document.getElementById('btn-games').classList.remove('active');
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById('btn-' + tabId).classList.add('active');
-        }
+<script>
+    // YouTube API'yi yükle
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        async function init() {
-            try {
-                // Tarayıcı önbellek (cache) sorununu önlemek için timestamp ekledik
-                const res = await fetch('data.json?t=' + new Date().getTime());
-                const data = await res.json();
-                
-                let blitzHtml = '';
-                data.blitz.forEach((u, i) => {
-                    blitzHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.rating}</span></div></div>`;
-                });
-                document.getElementById('blitz-list').innerHTML = blitzHtml;
+    let player;
+    let isPlaying = false;
 
-                let gamesHtml = '';
-                data.games.forEach((u, i) => {
-                    gamesHtml += `<div class="player-row"><div class="rank">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.games} Maç</span></div></div>`;
-                });
-                document.getElementById('games-list').innerHTML = gamesHtml;
-            } catch(e) {
-                document.getElementById('blitz-list').innerHTML = "Veriler yüklenirken bir hata oluştu...";
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('yt-player', {
+            height: '1',
+            width: '1',
+            videoId: 'kwZvy3qDpkQ', // Senin yolladığın video id'si
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'loop': 1,
+                'playlist': 'kwZvy3qDpkQ' // Döngü için gerekli
             }
+        });
+    }
+
+    function toggleMusic() {
+        if (!player || typeof player.playVideo !== 'function') return;
+        
+        const musicBtn = document.getElementById('music-toggle');
+        if (isPlaying) {
+            player.pauseVideo();
+            musicBtn.innerHTML = "🎵 Müziği Aç";
+            isPlaying = false;
+        } else {
+            player.playVideo();
+            musicBtn.innerHTML = "⏸️ Müziği Durdur";
+            isPlaying = true;
         }
-        init();
-    </script>
+    }
+
+    function switchTab(tabId) {
+        ['blitz', 'games', 'h2h'].forEach(id => {
+            document.getElementById(id).classList.remove('active');
+            document.getElementById('btn-' + id).classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        document.getElementById('btn-' + tabId).classList.add('active');
+        
+        if(tabId !== 'h2h') {
+            renderPodium(tabId);
+        }
+    }
+
+    let globalData = null;
+
+    function renderPodium(type) {
+        if (!globalData || !globalData[type] || globalData[type].length < 3) return;
+        const top3 = globalData[type].slice(0, 3);
+        const suffix = type === 'games' ? ' Maç' : '';
+        const valKey = type === 'games' ? 'games' : 'rating';
+        
+        document.getElementById('top-podium').innerHTML = `
+            <div class="podium-card second">
+                <div class="podium-crown" style="color: var(--silver)">🥈</div>
+                <div class="podium-name">${top3[1].username}</div>
+                <div class="podium-score">${top3[1][valKey]}${suffix}</div>
+            </div>
+            <div class="podium-card first">
+                <div class="podium-crown" style="color: var(--gold)">👑</div>
+                <div class="podium-name">${top3[0].username}</div>
+                <div class="podium-score">${top3[0][valKey]}${suffix}</div>
+            </div>
+            <div class="podium-card third">
+                <div class="podium-crown" style="color: var(--bronze)">🥉</div>
+                <div class="podium-name">${top3[2].username}</div>
+                <div class="podium-score">${top3[2][valKey]}${suffix}</div>
+            </div>
+        `;
+    }
+
+    async function init() {
+        try {
+            const res = await fetch('data.json?t=' + new Date().getTime());
+            globalData = await res.json();
+            
+            renderPodium('blitz');
+            
+            const simdi = new Date();
+            document.getElementById('update-time').innerText = `Son Güncelleme: Bugün ${simdi.getHours().toString().padStart(2, '0')}:${simdi.getMinutes().toString().padStart(2, '0')}`;
+
+            let blitzHtml = '';
+            globalData.blitz.forEach((u, i) => {
+                let rankClass = i < 3 ? `r${i+1}` : '';
+                blitzHtml += `<div class="player-row"><div class="rank ${rankClass}">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.rating}</span></div></div>`;
+            });
+            document.getElementById('blitz-list').innerHTML = blitzHtml;
+
+            let gamesHtml = '';
+            globalData.games.forEach((u, i) => {
+                let rankClass = i < 3 ? `r${i+1}` : '';
+                gamesHtml += `<div class="player-row"><div class="rank ${rankClass}">${i + 1}.</div><div class="username">${u.username}</div><div class="score-box"><span class="score">${u.games} Maç</span></div></div>`;
+            });
+            document.getElementById('games-list').innerHTML = gamesHtml;
+
+            let h2hHtml = '';
+            const h2hData = globalData.h2h || [
+                {p1: "ÖrnekRakip1", p2: "ÖrnekRakip2", p1Win: 5, p2Win: 3, total: 8}
+            ];
+            
+            h2hData.sort((a,b) => b.total - a.total).forEach((match, i) => {
+                h2hHtml += `
+                <div class="vs-row">
+                    <div class="rank">${i+1}.</div>
+                    <div class="vs-players">
+                        <div class="vs-names">${match.p1} ⚔️ ${match.p2}</div>
+                        <div class="vs-stats">Toplam: ${match.total} Maç</div>
+                    </div>
+                    <div class="score-box">
+                        <span class="score">${match.p1Win} - ${match.p2Win}</span>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('h2h-list').innerHTML = h2hHtml;
+
+        } catch(e) {
+            document.getElementById('blitz-list').innerHTML = "<div style='padding:20px;text-align:center;'>Veriler yüklenirken hata oluştu...</div>";
+        }
+    }
+    init();
+</script>
 </body>
 </html>
