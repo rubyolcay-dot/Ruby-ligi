@@ -37,7 +37,11 @@ jobs:
                       if not line.strip():
                           continue
                       user = json.loads(line.decode('utf-8'))
-                      username = user.get('username')
+                      
+                      # Lichess takım API'sinde kullanıcı adı 'id' veya 'username' olarak gelebilir
+                      username = user.get('id') or user.get('username')
+                      if not username:
+                          continue
                       
                       user_url = f'https://lichess.org/api/user/{username}'
                       user_req = urllib.request.Request(user_url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -49,13 +53,16 @@ jobs:
                               blitz_rating = blitz.get('rating', 0)
                               total_games = u_data.get('count', {}).get('all', 0)
                               
-                              blitz_data.append({'username': username, 'rating': blitz_rating})
-                              games_data.append({'username': username, 'games': total_games})
-                              print(f'Eklendi: {username}')
+                              # Görünen ismi al, yoksa id'yi kullan
+                              display_name = u_data.get('username', username)
+                              
+                              blitz_data.append({'username': display_name, 'rating': blitz_rating})
+                              games_data.append({'username': display_name, 'games': total_games})
+                              print(f'Eklendi: {display_name} - Puan: {blitz_rating}')
                       except Exception as e:
-                          print(f'{username} hatası: {e}')
+                          print(f'{username} profili çekilemedi: {e}')
                       
-                      time.sleep(1)
+                      time.sleep(0.5) # İşlemi biraz hızlandırmak için 0.5 saniyeye çektik
           except Exception as e:
               print(f'Takim hatasi: {e}')
 
