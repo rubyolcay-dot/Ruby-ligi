@@ -1,4 +1,23 @@
-      - name: Verileri Çek ve İşle
+name: Lichess Veri Guncelleme
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *' # Saatte bir otomatik çalışır
+
+jobs:
+  update-leaderboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu Klonla
+        uses: actions/checkout@v4
+
+      - name: Python Kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Verileri Cek ve Isle
         run: |
           python -c "
           import urllib.request
@@ -6,8 +25,6 @@
           import time
 
           TEAM_ID = 'ruby-satranc'
-          
-          # 1. Takım üyelerini çek
           members_url = f'https://lichess.org/api/team/{TEAM_ID}/users'
           req = urllib.request.Request(members_url, headers={'User-Agent': 'Mozilla/5.0'})
           
@@ -16,50 +33,43 @@
           
           try:
               with urllib.request.urlopen(req) as response:
-                  # Lichess her satırda bir kullanıcı objesi gönderir (NDJSON)
                   for line in response:
                       if not line.strip():
                           continue
                       user = json.loads(line.decode('utf-8'))
                       username = user.get('username')
                       
-                      # Kullanıcının detaylı profilini çek (Reyting ve Maç sayısı için)
                       user_url = f'https://lichess.org/api/user/{username}'
                       user_req = urllib.request.Request(user_url, headers={'User-Agent': 'Mozilla/5.0'})
                       
                       try:
                           with urllib.request.urlopen(user_req) as u_resp:
                               u_data = json.loads(u_resp.read().decode('utf-8'))
-                              
-                              # Blitz Bilgileri
                               blitz = u_data.get('perfs', {}).get('blitz', {})
                               blitz_rating = blitz.get('rating', 0)
-                              # Eğer hiç maç yapmadıysa 1500 başlangıç puanını sıfır saymasın veya listeye eklesin
-                              
-                              # Toplam Maç Sayısı
                               total_games = u_data.get('count', {}).get('all', 0)
                               
                               blitz_data.append({'username': username, 'rating': blitz_rating})
                               games_data.append({'username': username, 'games': total_games})
-                              
-                              print(f'Eklendi: {username} - Blitz: {blitz_rating}, Maç: {total_games}')
+                              print(f'Eklendi: {username}')
                       except Exception as e:
-                          print(f'{username} profili çekilemedi: {e}')
+                          print(f'{username} hatası: {e}')
                       
-                      time.sleep(1) # Lichess engel yememek için 1 saniye bekle
-                      
+                      time.sleep(1)
           except Exception as e:
-              print(f'Takım üyeleri alınamadı: {e}')
+              print(f'Takim hatasi: {e}')
 
-          # Puanlara göre büyükten küçüğe sırala
           blitz_data.sort(key=lambda x: x['rating'], reverse=True)
           games_data.sort(key=lambda x: x['games'], reverse=True)
 
-          output = {
-              'blitz': blitz_data,
-              'games': games_data
-          }
-
+          output = {'blitz': blitz_data, 'games': games_data}
           with open('data.json', 'w', encoding='utf-8') as f:
               json.dump(output, f, ensure_ascii=False, indent=2)
           "
+
+      - name: Degisiklikleri Kaydet ve Pushla
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Veriler güncellendi" && git push)
