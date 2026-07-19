@@ -1,4 +1,822 @@
 {
-  "blitz": [],
-  "games": []
+  "blitz": [
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    },
+    {
+      "username": null,
+      "rating": 1500
+    }
+  ],
+  "games": [
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    },
+    {
+      "username": null,
+      "games": 0
+    }
+  ]
 }
