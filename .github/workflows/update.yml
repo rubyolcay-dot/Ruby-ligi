@@ -1,82 +1,123 @@
-name: Lichess Veri Guncelleme
+import requests
+import json
+import os
+import time  # EKSİK 1: Zaman kütüphanesi eklendi
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 * * * *' # Saatte bir otomatik çalışır
+# Takım adı
+TEAM_ID = "ruby-satranc"
 
-jobs:
-  update-leaderboard:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Depoyu Klonla
-        uses: actions/checkout@v4
+def get_team_members():
+    url = f"https://lichess.org/api/team/{TEAM_ID}/users"
+    response = requests.get(url)
+    if response.status_code == 200:
+        lines = response.text.strip().split('\n')
+        members = []
+        for line in lines:
+            if line:
+                members.append(json.loads(line))
+        return members
+    return []
 
-      - name: Python Kur
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+def get_h2h_matches(usernames):
+    h2h_data = {}
+    
+    for username in usernames:
+        # EKSİK 2: Lichess'in bizi engellememesi için her istekten önce 1 saniye bekliyoruz
+        time.sleep(1) 
+        
+        # Sadece Blitz maçları ve en fazla 50 maçı çekiyoruz
+        url = f"https://lichess.org/api/games/user/{username}?max=50&perfType=blitz"
+        headers = {"Accept": "application/x-ndjson"}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code != 200:
+                continue
+                
+            lines = response.text.strip().split('\n')
+            for line in lines:
+                if not line:
+                    continue
+                
+                game = json.loads(line)
+                
+                # Maçın gerçekten Blitz olup olmadığını burada da garantiye alalım
+                if game.get('speed') != 'blitz':
+                    continue
+                    
+                players = game.get('players', {})
+                white = players.get('white', {}).get('user', {}).get('name')
+                black = players.get('black', {}).get('user', {}).get('name')
+                
+                if not white or not black:
+                    continue
+                    
+                # İki oyuncu da bizim takımdaysa
+                if white in usernames and black in usernames and white != black:
+                    p1, p2 = sorted([white, black])
+                    pair_key = f"{p1}_vs_{p2}"
+                    
+                    winner = game.get('winner')
+                    
+                    if pair_key not in h2h_data:
+                        h2h_data[pair_key] = {"p1": p1, "p2": p2, "p1Win": 0, "p2Win": 0, "total": 0}
+                        
+                    h2h_data[pair_key]["total"] += 1
+                    
+                    if winner == 'white':
+                        win_name = white
+                    elif winner == 'black':
+                        win_name = black
+                    else:
+                        win_name = None  # Beraberlik
+                        
+                    if win_name == p1:
+                        h2h_data[pair_key]["p1Win"] += 1
+                    elif win_name == p2:
+                        h2h_data[pair_key]["p2Win"] += 1
+        except Exception as e:
+            print(f"{username} için maçlar çekilirken hata oluştu: {e}")
+            continue
 
-      - name: Verileri Cek ve Isle
-        run: |
-          python -c "
-          import urllib.request
-          import json
-          import time
+    return list(h2h_data.values())
 
-          TEAM_ID = 'ruby-satranc'
-          members_url = f'https://lichess.org/api/team/{TEAM_ID}/users'
-          req = urllib.request.Request(members_url, headers={'User-Agent': 'Mozilla/5.0'})
-          
-          blitz_data = []
-          games_data = []
-          
-          try:
-              with urllib.request.urlopen(req) as response:
-                  for line in response:
-                      if not line.strip():
-                          continue
-                      user = json.loads(line.decode('utf-8'))
-                      
-                      # Lichess takım API'sinde kullanıcı adı 'id' veya 'username' olarak gelebilir
-                      username = user.get('id') or user.get('username')
-                      if not username:
-                          continue
-                      
-                      user_url = f'https://lichess.org/api/user/{username}'
-                      user_req = urllib.request.Request(user_url, headers={'User-Agent': 'Mozilla/5.0'})
-                      
-                      try:
-                          with urllib.request.urlopen(user_req) as u_resp:
-                              u_data = json.loads(u_resp.read().decode('utf-8'))
-                              blitz = u_data.get('perfs', {}).get('blitz', {})
-                              blitz_rating = blitz.get('rating', 0)
-                              total_games = u_data.get('count', {}).get('all', 0)
-                              
-                              # Görünen ismi al, yoksa id'yi kullan
-                              display_name = u_data.get('username', username)
-                              
-                              blitz_data.append({'username': display_name, 'rating': blitz_rating})
-                              games_data.append({'username': display_name, 'games': total_games})
-                              print(f'Eklendi: {display_name} - Puan: {blitz_rating}')
-                      except Exception as e:
-                          print(f'{username} profili çekilemedi: {e}')
-                      
-                      time.sleep(0.5) # İşlemi biraz hızlandırmak için 0.5 saniyeye çektik
-          except Exception as e:
-              print(f'Takim hatasi: {e}')
+def main():
+    members = get_team_members()
+    if not members:
+        print("Takım üyeleri alınamadı.")
+        return
 
-          blitz_data.sort(key=lambda x: x['rating'], reverse=True)
-          games_data.sort(key=lambda x: x['games'], reverse=True)
+    blitz_list = []
+    games_list = []
+    usernames = set()
 
-          output = {'blitz': blitz_data, 'games': games_data}
-          with open('data.json', 'w', encoding='utf-8') as f:
-              json.dump(output, f, ensure_ascii=False, indent=2)
-          "
+    for m in members:
+        username = m.get('username')
+        usernames.add(username)
+        perfs = m.get('perfs', {})
+        
+        blitz_rating = perfs.get('blitz', {}).get('rating', 1500)
+        blitz_list.append({"username": username, "rating": blitz_rating})
+        
+        total_games = m.get('count', {}).get('all', 0)
+        games_list.append({"username": username, "games": total_games})
 
-      - name: Degisiklikleri Kaydet ve Pushla
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Veriler güncellendi" && git push)
+    blitz_list.sort(key=lambda x: x['rating'], reverse=True)
+    games_list.sort(key=lambda x: x['games'], reverse=True)
+
+    print("Ezeli rekabetler hesaplanıyor (Bu işlem biraz zaman alabilir)...")
+    h2h_list = get_h2h_matches(usernames)
+
+    output_data = {
+        "blitz": blitz_list,
+        "games": games_list,
+        "h2h": h2h_list
+    }
+
+    with open('data.json', 'w', encoding='utf-8') as f:
+        json.dump(output_data, f, ensure_ascii=False, indent=4)
+        
+    print("data.json başarıyla güncellendi!")
+
+if __name__ == "__main__":
+    main()
