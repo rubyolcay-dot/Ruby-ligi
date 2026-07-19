@@ -2,45 +2,41 @@ import requests
 import json
 import time
 
-TEAM_ID = "ruby-satranc"
-HEADERS = {
-    "Accept": "application/x-ndjson",
-    "User-Agent": "RubyChessLeague-AutoUpdater/1.0"
-}
-
-def get_team_members():
-    url = f"https://lichess.org/api/team/{TEAM_ID}/users"
-    print(f"Veri çekiliyor: {url}")
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=30)
-        if response.status_code == 200:
-            # Lichess her satıra bir JSON objesi koyar
-            members = []
-            for line in response.text.splitlines():
-                if line.strip():
-                    user_obj = json.loads(line)
-                    # Burası önemli: Lichess JSON'da 'id' veya 'username' anahtarı ile isim gelir
-                    username = user_obj.get('username') or user_obj.get('id')
-                    if username:
-                        members.append(user_obj)
-            print(f"Toplam {len(members)} üye bulundu ve isimleri ayrıştırıldı.")
-            return members
-    except Exception as e:
-        print(f"Hata: {e}")
-    return []
-
-# ... (get_h2h_matches fonksiyonun aynı kalsın) ...
+# Lichess'in bize vereceği en temiz veri kaynağı
+URL = "https://lichess.org/api/team/ruby-satranc/users"
 
 def main():
-    members = get_team_members()
-    if not members:
-        return
+    try:
+        # Veriyi çek
+        response = requests.get(URL, headers={"Accept": "application/x-ndjson"}, timeout=30)
+        if response.status_code != 200:
+            print(f"API Hatası: {response.status_code}")
+            return
 
-    blitz_list = []
-    games_list = []
-    usernames = [] # Set yerine liste yapalım
-    
-    for m in members:
-        username = m.get('username') or m.get('id')
-        usernames.append(username)
-        # ... (diğer işlemler)
+        # Üyeleri ayıkla
+        lines = response.text.strip().split('\n')
+        members = [json.loads(line) for line in lines if line.strip()]
+        
+        if not members:
+            print("Üye bulunamadı!")
+            return
+
+        blitz_data = []
+        # Sadece ilk 20 üyeyi alalım ki Lichess engeline takılmayalım (hız için)
+        for m in members[:20]: 
+            name = m.get('username')
+            rating = m.get('perfs', {}).get('blitz', {}).get('rating', 1500)
+            blitz_data.append({"username": name, "rating": rating})
+
+        # Dosyaya yaz (Ezeli rekabeti geçici olarak boş bırakıyoruz ki site null vermesin)
+        final_data = {"blitz": blitz_data, "games": [], "h2h": []}
+        
+        with open('data.json', 'w', encoding='utf-8') as f:
+            json.dump(final_data, f, ensure_ascii=False, indent=4)
+        print("Veriler başarıyla yazıldı!")
+        
+    except Exception as e:
+        print(f"Hata: {e}")
+
+if __name__ == "__main__":
+    main()
