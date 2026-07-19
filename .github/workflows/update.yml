@@ -1,8 +1,8 @@
 name: Lichess Veri Guncelleme
 on:
   schedule:
-    - cron: '0 */6 * * *' # 6 saatte bir otomatik çalışır
-  workflow_dispatch: # İstediğin an elinle de çalıştırabilmen için
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -16,17 +16,20 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Kutuphaneleri Kur
+        run: |
+          pip install requests
+
       - name: Lichess Verilerini Isle
         run: |
+          python -c "
           import requests
           import json
           
-          # Lichess API'sinden takımı çekiyoruz
           res = requests.get('https://lichess.org/api/team/ruby-satranc/users')
           lines = res.text.strip().split('\n')
           users = [json.loads(l) for l in lines if l]
           
-          # Eğer eski veri varsa, değişim hesaplamak için hafızaya alıyoruz
           try:
               with open('data.json', 'r') as f:
                   old_data = json.load(f)
@@ -34,7 +37,6 @@ jobs:
           except:
               old_ratings = {}
               
-          # Blitz sıralaması ve 6 saatlik fark hesabı
           blitz_list = []
           for u in users:
               if 'perfs' in u and 'blitz' in u['perfs']:
@@ -44,17 +46,16 @@ jobs:
                   blitz_list.append({'name': name, 'rating': current, 'change': change})
           blitz_list.sort(key=lambda x: x['rating'], reverse=True)
           
-          # Toplam maç sayısına göre sıralama
           games_list = []
           for u in users:
               if 'count' in u and 'all' in u['count']:
                   games_list.append({'name': u['username'], 'count': u['count']['all']})
           games_list.sort(key=lambda x: x['count'], reverse=True)
           
-          # Sonuçları data.json dosyasına yazıyoruz
           new_data = {'blitz': blitz_list, 'games': games_list}
           with open('data.json', 'w') as f:
               json.dump(new_data, f, indent=2)
+          "
 
       - name: Degisiklikleri Githuba Yukle
         run: |
