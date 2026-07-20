@@ -5,50 +5,69 @@ URL = "https://lichess.org/api/team/ruby-satranc/users"
 
 def main():
     try:
-        # User-Agent şart, Lichess bot engeline takılmamak için
         headers = {
             "Accept": "application/x-ndjson",
-            "User-Agent": "RubyChessLeague/1.0 (Contact: admin@rubyleague.com)"
+            "User-Agent": "RubyChessLeague/1.0"
         }
-        
-        response = requests.get(URL, headers=headers, timeout=30)
-        
+
+        response = requests.get(URL, headers=headers)
+
         if response.status_code != 200:
             print(f"API Hatası: {response.status_code}")
             return
 
         lines = response.text.strip().split('\n')
         members = [json.loads(line) for line in lines if line.strip()]
-        
+
         if not members:
             print("Üye bulunamadı!")
             return
 
-        blitz_data = []
+        players = []
+
         for m in members:
-            # Lichess bazen 'username', bazen 'id' verir. İkisini de kontrol edelim:
-            username = m.get('username') or m.get('id') or m.get('name')
-            
-            # Eğer bir şekilde isim çekilemediyse 'null' basmasın, o oyuncuyu atlasın
+            # Kullanıcı adı kontrolü
+            username = m.get("username") or m.get("id") or m.get("name")
             if not username:
                 continue
-                
-            rating = m.get('perfs', {}).get('blitz', {}).get('rating', 1500)
-            blitz_data.append({"username": username, "rating": rating})
 
-        final_data = {
-            "blitz": blitz_data,
-            "games": [],
-            "h2h": []
+            # Reyting ve Performans Verileri
+            perfs = m.get("perfs", {})
+            blitz_perf = perfs.get("blitz", {})
+            blitz_rating = blitz_perf.get("rating", 1500)
+            blitz_games = blitz_perf.get("games", 0)
+
+            # Toplam Oyun İstatistikleri
+            count_data = m.get("count", {})
+            total_games = count_data.get("all", blitz_games)
+            wins = count_data.get("win", 0)
+            losses = count_data.get("loss", 0)
+            draws = count_data.get("draw", 0)
+
+            players.append({
+                "username": username,
+                "blitz": blitz_rating,
+                "totalGames": total_games,
+                "win": wins,
+                "loss": losses,
+                "draw": draws
+            })
+
+        # Blitz puanına göre yüksekten düşüğe sırala
+        players.sort(key=lambda x: x["blitz"], reverse=True)
+
+        data = {
+            "players": players,
+            "rivalries": []
         }
-        
-        with open('data.json', 'w', encoding='utf-8') as f:
-            json.dump(final_data, f, ensure_ascii=False, indent=4)
-            
-        print(f"Başarıyla {len(blitz_data)} oyuncu yazıldı!")
-        
+
+        with open("data.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        print("data.json başarıyla güncellendi!")
+
     except Exception as e:
-        print(f"Hata oluştu: {e}")
+        print(f"Bir hata oluştu: {e}")
 
 if __name__ == "__main__":
     main()
