@@ -1,0 +1,28 @@
+name: Ezeli Rekabet Tarayıcı Botu
+on:
+  schedule:
+    - cron: "*/30 * * * *" # Her 30 dakikada bir otomatik çalışır
+  workflow_dispatch: # Manuel tetikleme butonu
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Gereksinimleri Yükle
+        run: pip install requests
+      - name: Rekabetleri Tara ve Çek
+        run: python ezeli_rekabet.py
+      - name: Yeni Skorları Github'a Kaydet
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add rivalries.json scan_state.json
+          git commit -m "Ezeli Rekabet listesi güncellendi" || exit 0
+          git push
