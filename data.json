@@ -1,86 +1,11 @@
 {
     "blitz": [
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        },
-        {
-            "username": null,
-            "rating": 1500
-        }
+        {"username": "Ruby_Test", "rating": 1500}
     ],
-    "games": [],
-    "h2h": []
+    "games": [
+        {"username": "Ruby_Test", "games": 1}
+    ],
+    "h2h": [
+        {"p1": "Ruby_Test", "p2": "Admin_Test", "p1Win": 0, "p2Win": 0, "total": 1}
+    ]
 }
