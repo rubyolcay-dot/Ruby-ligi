@@ -1,19 +1,22 @@
 import requests
 import json
-import time
 
-# Lichess'in bize vereceği en temiz veri kaynağı
 URL = "https://lichess.org/api/team/ruby-satranc/users"
 
 def main():
     try:
-        # Veriyi çek
-        response = requests.get(URL, headers={"Accept": "application/x-ndjson"}, timeout=30)
+        # User-Agent şart, Lichess bot engeline takılmamak için
+        headers = {
+            "Accept": "application/x-ndjson",
+            "User-Agent": "RubyChessLeague/1.0 (Contact: admin@rubyleague.com)"
+        }
+        
+        response = requests.get(URL, headers=headers, timeout=30)
+        
         if response.status_code != 200:
             print(f"API Hatası: {response.status_code}")
             return
 
-        # Üyeleri ayıkla
         lines = response.text.strip().split('\n')
         members = [json.loads(line) for line in lines if line.strip()]
         
@@ -22,21 +25,30 @@ def main():
             return
 
         blitz_data = []
-        # Sadece ilk 20 üyeyi alalım ki Lichess engeline takılmayalım (hız için)
-        for m in members[:20]: 
-            name = m.get('username')
+        for m in members:
+            # Lichess bazen 'username', bazen 'id' verir. İkisini de kontrol edelim:
+            username = m.get('username') or m.get('id') or m.get('name')
+            
+            # Eğer bir şekilde isim çekilemediyse 'null' basmasın, o oyuncuyu atlasın
+            if not username:
+                continue
+                
             rating = m.get('perfs', {}).get('blitz', {}).get('rating', 1500)
-            blitz_data.append({"username": name, "rating": rating})
+            blitz_data.append({"username": username, "rating": rating})
 
-        # Dosyaya yaz (Ezeli rekabeti geçici olarak boş bırakıyoruz ki site null vermesin)
-        final_data = {"blitz": blitz_data, "games": [], "h2h": []}
+        final_data = {
+            "blitz": blitz_data,
+            "games": [],
+            "h2h": []
+        }
         
         with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(final_data, f, ensure_ascii=False, indent=4)
-        print("Veriler başarıyla yazıldı!")
+            
+        print(f"Başarıyla {len(blitz_data)} oyuncu yazıldı!")
         
     except Exception as e:
-        print(f"Hata: {e}")
+        print(f"Hata oluştu: {e}")
 
 if __name__ == "__main__":
     main()
