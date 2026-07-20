@@ -1,83 +1,411 @@
 {
     "blitz": [
         {
-            "username": null,
+            "username": "mlh33",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "usta28",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "seren27",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "pnrgkce",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "kenjibanaiw",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "merspacrk",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "vadimuss-1",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "plusmaniac",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "ftmdm_1",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "mcinarus",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "hanifee_demirbas51",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "libero790",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "cinarus42",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "dr-cooper",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "armageddon_satranc",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "dusunurhab",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "hakan070",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "oguzm_72",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "mertcanyesiloz06",
             "rating": 1500
         },
         {
-            "username": null,
+            "username": "queensgambit4201",
+            "rating": 1500
+        },
+        {
+            "username": "ysncfc02",
+            "rating": 1500
+        },
+        {
+            "username": "oguzhancam",
+            "rating": 1500
+        },
+        {
+            "username": "umutakbulut01",
+            "rating": 1500
+        },
+        {
+            "username": "nurgzck",
+            "rating": 1500
+        },
+        {
+            "username": "yusufkayraaky",
+            "rating": 1500
+        },
+        {
+            "username": "aliekebas",
+            "rating": 1500
+        },
+        {
+            "username": "metehanbaysal",
+            "rating": 1500
+        },
+        {
+            "username": "muammer51",
+            "rating": 1500
+        },
+        {
+            "username": "alpcagri",
+            "rating": 1500
+        },
+        {
+            "username": "mkagan-2014",
+            "rating": 1500
+        },
+        {
+            "username": "enestaha682024",
+            "rating": 1500
+        },
+        {
+            "username": "beragoktas",
+            "rating": 1500
+        },
+        {
+            "username": "hasantelefon33",
+            "rating": 1500
+        },
+        {
+            "username": "exeeymen51x",
+            "rating": 1500
+        },
+        {
+            "username": "the_roookk",
+            "rating": 1500
+        },
+        {
+            "username": "berkeuzunlu28",
+            "rating": 1500
+        },
+        {
+            "username": "ahmettalha512014",
+            "rating": 1500
+        },
+        {
+            "username": "turkmenoglu11",
+            "rating": 1500
+        },
+        {
+            "username": "enes_osman",
+            "rating": 1500
+        },
+        {
+            "username": "santrancomer51",
+            "rating": 1500
+        },
+        {
+            "username": "aksiyonoyuncusu13",
+            "rating": 1500
+        },
+        {
+            "username": "mustafaucler15",
+            "rating": 1500
+        },
+        {
+            "username": "kafkas51",
+            "rating": 1500
+        },
+        {
+            "username": "aslankaplann",
+            "rating": 1500
+        },
+        {
+            "username": "grorgog",
+            "rating": 1500
+        },
+        {
+            "username": "susanvalentina",
+            "rating": 1500
+        },
+        {
+            "username": "serkankayaa",
+            "rating": 1500
+        },
+        {
+            "username": "augustinet",
+            "rating": 1500
+        },
+        {
+            "username": "tracklylemon",
+            "rating": 1500
+        },
+        {
+            "username": "demirdbuken",
+            "rating": 1500
+        },
+        {
+            "username": "drmustafamso",
+            "rating": 1500
+        },
+        {
+            "username": "cogitoergosum_a",
+            "rating": 1500
+        },
+        {
+            "username": "happydayschessmaster",
+            "rating": 1500
+        },
+        {
+            "username": "aliardaeren",
+            "rating": 1500
+        },
+        {
+            "username": "arseniy550",
+            "rating": 1500
+        },
+        {
+            "username": "shawon_the_chessking",
+            "rating": 1500
+        },
+        {
+            "username": "satranchesss",
+            "rating": 1500
+        },
+        {
+            "username": "eichi51",
+            "rating": 1500
+        },
+        {
+            "username": "kaanpulanay",
+            "rating": 1500
+        },
+        {
+            "username": "oguzkagan708",
+            "rating": 1500
+        },
+        {
+            "username": "maximus247096",
+            "rating": 1500
+        },
+        {
+            "username": "barlas27",
+            "rating": 1500
+        },
+        {
+            "username": "aliomerozturk",
+            "rating": 1500
+        },
+        {
+            "username": "bayramadanur",
+            "rating": 1500
+        },
+        {
+            "username": "kaptann453",
+            "rating": 1500
+        },
+        {
+            "username": "servetkaratas61",
+            "rating": 1500
+        },
+        {
+            "username": "adamgibiadam1",
+            "rating": 1500
+        },
+        {
+            "username": "maviliman",
+            "rating": 1500
+        },
+        {
+            "username": "bilgemiderin",
+            "rating": 1500
+        },
+        {
+            "username": "klasikatahan",
+            "rating": 1500
+        },
+        {
+            "username": "fernando180186",
+            "rating": 1500
+        },
+        {
+            "username": "istatistik1234",
+            "rating": 1500
+        },
+        {
+            "username": "aglama_oynaaa",
+            "rating": 1500
+        },
+        {
+            "username": "emirhan_3890v2",
+            "rating": 1500
+        },
+        {
+            "username": "robatici",
+            "rating": 1500
+        },
+        {
+            "username": "mahmutsamike",
+            "rating": 1500
+        },
+        {
+            "username": "bload35",
+            "rating": 1500
+        },
+        {
+            "username": "b1sh0ps",
+            "rating": 1500
+        },
+        {
+            "username": "emanuellasker61",
+            "rating": 1500
+        },
+        {
+            "username": "abedaltifmoamen",
+            "rating": 1500
+        },
+        {
+            "username": "entramado",
+            "rating": 1500
+        },
+        {
+            "username": "seyyah1061",
+            "rating": 1500
+        },
+        {
+            "username": "kursad_arda",
+            "rating": 1500
+        },
+        {
+            "username": "yakup1990",
+            "rating": 1500
+        },
+        {
+            "username": "speedrunto2031elo",
+            "rating": 1500
+        },
+        {
+            "username": "starkhanesi",
+            "rating": 1500
+        },
+        {
+            "username": "ricardoreti1979",
+            "rating": 1500
+        },
+        {
+            "username": "somebody52",
+            "rating": 1500
+        },
+        {
+            "username": "supnjanskikarpov",
+            "rating": 1500
+        },
+        {
+            "username": "djdf1480",
+            "rating": 1500
+        },
+        {
+            "username": "leandrosky16",
+            "rating": 1500
+        },
+        {
+            "username": "sezerkumbul",
+            "rating": 1500
+        },
+        {
+            "username": "karatas89",
+            "rating": 1500
+        },
+        {
+            "username": "selamidanabas7",
+            "rating": 1500
+        },
+        {
+            "username": "onurarslann",
+            "rating": 1500
+        },
+        {
+            "username": "alexdesouza44",
+            "rating": 1500
+        },
+        {
+            "username": "burnuk",
+            "rating": 1500
+        },
+        {
+            "username": "eternal91",
+            "rating": 1500
+        },
+        {
+            "username": "sharlockk",
+            "rating": 1500
+        },
+        {
+            "username": "emirhanyl13",
+            "rating": 1500
+        },
+        {
+            "username": "kitabeddin",
+            "rating": 1500
+        },
+        {
+            "username": "ruby_tr",
             "rating": 1500
         }
     ],
