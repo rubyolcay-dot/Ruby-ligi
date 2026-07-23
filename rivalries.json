@@ -7,6 +7,13 @@
     "totalMatches": 3
   },
   {
+    "player1": "barlas27",
+    "player2": "usta28",
+    "score1": 1,
+    "score2": 1,
+    "totalMatches": 2
+  },
+  {
     "player1": "bayramadanur",
     "player2": "usta28",
     "score1": 2,
@@ -14,11 +21,18 @@
     "totalMatches": 2
   },
   {
-    "player1": "barlas27",
+    "player1": "augustinet",
     "player2": "usta28",
     "score1": 1,
+    "score2": 0,
+    "totalMatches": 1
+  },
+  {
+    "player1": "usta28",
+    "player2": "yakup1990",
+    "score1": 0,
     "score2": 1,
-    "totalMatches": 2
+    "totalMatches": 1
   },
   {
     "player1": "starkhanesi",
@@ -32,20 +46,6 @@
     "player2": "usta28",
     "score1": 0,
     "score2": 1,
-    "totalMatches": 1
-  },
-  {
-    "player1": "usta28",
-    "player2": "yakup1990",
-    "score1": 0,
-    "score2": 1,
-    "totalMatches": 1
-  },
-  {
-    "player1": "augustinet",
-    "player2": "usta28",
-    "score1": 1,
-    "score2": 0,
     "totalMatches": 1
   }
 ]
